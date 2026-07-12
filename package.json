@@ -1,0 +1,23 @@
+{
+  "name": "prism_demo",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:active_admin_js": "esbuild app/javascript/admin/active_admin.js --bundle --format=iife --inject:app/javascript/admin/jquery_shim.js --outfile=app/assets/builds/active_admin.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@activeadmin/activeadmin": "^3.5.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  }
+}

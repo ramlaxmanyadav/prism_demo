@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  phone: MyString
+  date_of_birth: 2026-07-12
+  grade: MyString
+  enrollment_number: MyString
+  teacher: one
+  active: false
+
+two:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  phone: MyString
+  date_of_birth: 2026-07-12
+  grade: MyString
+  enrollment_number: MyString
+  teacher: two
+  active: false
