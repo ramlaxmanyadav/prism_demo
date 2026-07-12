@@ -1,8 +1,11 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
+# If running the rails server then create or migrate existing database, and
+# (re)load the demo data — the container's disk isn't persistent, so this
+# keeps the school demo dataset present after every deploy/restart.
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
   ./bin/rails db:prepare
+  ./bin/rails db:seed
 fi
 
 exec "${@}"
