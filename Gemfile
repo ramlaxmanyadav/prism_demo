@@ -45,7 +45,7 @@ gem "activeadmin", "3.5.1"
 # Flexible authentication solution, required by ActiveAdmin [https://github.com/heartcombo/devise]
 gem "devise"
 # Prism theme for ActiveAdmin (local gem)
-gem "active_admin_prism", path: "/Users/stand-by/Documents/workspace/poc/gems/active_admin_prism"
+gem 'active_admin_prism', '>= 0.1.0'
 # Compiles ActiveAdmin's own Sass (active_admin.scss) for the Propshaft asset pipeline
 gem "dartsass-rails"
 # Generates fake data for seeding the demo database
