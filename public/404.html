@@ -1,135 +1,164 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prism — Page Not Found</title>
+<style>
+  /*
+    Static public/ error page — Rails serves this straight off disk
+    (ActionDispatch::PublicExceptions), completely outside the asset
+    pipeline and any Rails view/layout, so it can't @import prism.css,
+    use ERB, or rely on any Ruby config. Colors below are copied from
+    this gem's scss-src/_variables.scss defaults (as of the version this
+    was generated from) rather than referencing them, and won't track a
+    host's own color customizations automatically — re-run the generator
+    (or hand-edit this file) after changing your palette if that matters
+    to you. No external requests (fonts, CDNs) on purpose — this page
+    needs to render even if the rest of the app/network is unhealthy.
+  */
+  :root{
+    --primary:#6d5bd0;
+    --primary-dark:#5949b8;
+    --primary-light:#f2ecfd;
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --border:#e6e8ec;
+    --text:#1a1f36;
+    --muted:#6b7280;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    overflow:hidden;
+    position:relative;
+  }
 
-  <head>
+  .bg-blobs{position:fixed;inset:0;z-index:0;overflow:hidden;}
+  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.35;will-change:transform;}
+  .blob-1{width:480px;height:480px;background:radial-gradient(circle at 30% 30%, var(--primary), transparent 70%);top:-160px;left:-140px;animation:float1 16s ease-in-out infinite;}
+  .blob-2{width:420px;height:420px;background:radial-gradient(circle at 70% 70%, #a78bfa, transparent 70%);bottom:-140px;right:-120px;animation:float2 18s ease-in-out infinite;}
+  .blob-3{width:300px;height:300px;background:radial-gradient(circle, #ff6b9a, transparent 70%);top:40%;right:10%;opacity:.18;animation:float3 14s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,40px) scale(1.1);}}
+  @keyframes float2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-50px,-30px) scale(1.08);}}
+  @keyframes float3{0%,100%{transform:translate(0,0);}50%{transform:translate(-40px,30px);}}
 
-    <title>The page you were looking for doesn't exist (404 Not found)</title>
+  .wrapper{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;animation:cardIn .7s cubic-bezier(.2,.8,.2,1) both;}
+  @keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, width=device-width">
-    <meta name="robots" content="noindex, nofollow">
+  .card{
+    width:460px;
+    max-width:90vw;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:0 20px 50px -20px rgba(76,63,180,.25), 0 2px 8px rgba(20,20,40,.04);
+    padding:44px 40px 36px;
+    text-align:center;
+  }
 
-    <style>
+  .prism-mark{width:88px;height:88px;margin:0 auto 8px;position:relative;}
+  .prism-mark svg{width:100%;height:100%;overflow:visible;}
+  .prism-tri{animation:drift 5s ease-in-out infinite;transform-origin:center;}
+  @keyframes drift{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-4px) rotate(-2deg);}}
+  .beam{stroke-dasharray:40;animation:beamFlow 2.4s linear infinite;}
+  @keyframes beamFlow{to{stroke-dashoffset:-80;}}
+  .beam-dash{opacity:.55;animation:fadePulse 1.8s ease-in-out infinite;}
+  @keyframes fadePulse{0%,100%{opacity:.25;}50%{opacity:.7;}}
+  .qmark{animation:bob 2.4s ease-in-out infinite;transform-origin:center;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
+  .error-code{
+    font-size:76px;
+    font-weight:800;
+    letter-spacing:-.03em;
+    line-height:1;
+    margin:6px 0 6px;
+    background:linear-gradient(135deg,var(--primary), #a78bfa, var(--primary));
+    background-size:200% 200%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradientShift 6s ease infinite;
+  }
+  @keyframes gradientShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
 
-      * {
-        margin: 0;
-      }
+  h1{margin:0 0 8px;font-size:19px;font-weight:700;}
+  p.desc{margin:0 0 28px;color:var(--muted);font-size:13.5px;line-height:1.6;}
 
-      html {
-        font-size: 16px;
-      }
+  .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary,.btn-secondary{
+    padding:11px 20px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+    font-family:inherit;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    transition:background .18s ease, transform .12s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .btn-primary{
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    box-shadow:0 8px 20px -8px rgba(109,91,208,.6);
+  }
+  .btn-primary:hover{background:var(--primary-dark);}
+  .btn-primary:active{transform:scale(.98);}
+  .btn-secondary{
+    background:#fff;
+    color:var(--text);
+    border:1.5px solid var(--border);
+  }
+  .btn-secondary:hover{border-color:var(--primary);background:var(--primary-light);}
 
-      body {
-        background: #FFF;
-        color: #261B23;
-        display: grid;
-        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Aptos, Roboto, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        font-size: clamp(1rem, 2.5vw, 2rem);
-        -webkit-font-smoothing: antialiased;
-        font-style: normal;
-        font-weight: 400;
-        letter-spacing: -0.0025em;
-        line-height: 1.4;
-        min-height: 100dvh;
-        place-items: center;
-        text-rendering: optimizeLegibility;
-        -webkit-text-size-adjust: 100%;
-      }
+  .footer-note{margin-top:20px;font-size:12px;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
 
-      #error-description {
-        fill: #d30001;
-      }
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
-      #error-id {
-        fill: #f0eff0;
-      }
+  <div class="wrapper">
+    <div class="card">
+      <div class="prism-mark">
+        <svg viewBox="0 0 100 100">
+          <text class="qmark" x="66" y="18" font-size="18" font-weight="800" fill="#a78bfa">?</text>
+          <polygon class="prism-tri" points="24,72 50,20 76,72" fill="rgba(109,91,208,.10)" stroke="#6d5bd0" stroke-width="3"/>
+          <line class="beam-dash" x1="2" y1="55" x2="34" y2="55" stroke="#6d5bd0" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 6"/>
+          <line class="beam" x1="62" y1="46" x2="92" y2="18" stroke="#e53935" stroke-width="3" stroke-linecap="round"/>
+          <line class="beam" x1="62" y1="53" x2="94" y2="53" stroke="#fdd835" stroke-width="3" stroke-linecap="round" style="animation-delay:.15s"/>
+          <line class="beam" x1="62" y1="60" x2="90" y2="90" stroke="#1e88e5" stroke-width="3" stroke-linecap="round" style="animation-delay:.3s"/>
+        </svg>
+      </div>
 
-      @media (prefers-color-scheme: dark) {
-        body {
-          background: #101010;
-          color: #e0e0e0;
-        }
+      <div class="error-code">404</div>
+      <h1>Page not found</h1>
+      <p class="desc">The page you're looking for got refracted somewhere along the way. It may have been moved, renamed, or never existed.</p>
 
-        #error-description {
-          fill: #FF6161;
-        }
+      <div class="actions">
+        <!-- Static file, no Rails route helpers available — point this at your own admin root. -->
+        <a href="/" class="btn-primary">Back to Dashboard</a>
+        <!-- Placeholder — point this at your own support inbox/issue tracker, or remove it. -->
+        <a href="mailto:support@example.com" class="btn-secondary">Report Issue</a>
+      </div>
+    </div>
+    <p class="footer-note">Prism theme for ActiveAdmin</p>
+  </div>
 
-        #error-id {
-          fill: #2c2c2c;
-        }
-      }
-
-      a {
-        color: inherit;
-        font-weight: 700;
-        text-decoration: underline;
-        text-underline-offset: 0.0925em;
-      }
-
-      b, strong {
-        font-weight: 700;
-      }
-
-      i, em {
-        font-style: italic;
-      }
-
-      main {
-        display: grid;
-        gap: 1em;
-        padding: 2em;
-        place-items: center;
-        text-align: center;
-      }
-
-      main header {
-        width: min(100%, 12em);
-      }
-
-      main header svg {
-        height: auto;
-        max-width: 100%;
-        width: 100%;
-      }
-
-      main article {
-        width: min(100%, 30em);
-      }
-
-      main article p {
-        font-size: 75%;
-      }
-
-      main article br {
-        display: none;
-
-        @media(min-width: 48em) {
-          display: inline;
-        }
-      }
-
-    </style>
-
-  </head>
-
-  <body>
-
-    <!-- This file lives in public/404.html -->
-
-    <main>
-      <header>
-        <svg height="172" viewBox="0 0 480 172" width="480" xmlns="http://www.w3.org/2000/svg"><path d="m124.48 3.00509-45.6889 100.02991h26.2239v-28.1168h38.119v28.1168h21.628v35.145h-21.628v30.82h-37.308v-30.82h-72.1833v-31.901l50.2851-103.27391zm115.583 168.69891c-40.822 0-64.884-35.146-64.884-85.7015 0-50.5554 24.062-85.700907 64.884-85.700907 40.823 0 64.884 35.145507 64.884 85.700907 0 50.5555-24.061 85.7015-64.884 85.7015zm0-133.2831c-17.572 0-22.709 21.8984-22.709 47.5816 0 25.6835 5.137 47.5815 22.709 47.5815 17.303 0 22.71-21.898 22.71-47.5815 0-25.6832-5.407-47.5816-22.71-47.5816zm165.328-35.41581-45.689 100.02991h26.224v-28.1168h38.119v28.1168h21.628v35.145h-21.628v30.82h-37.308v-30.82h-72.184v-31.901l50.285-103.27391z" id="error-id"/><path d="m157.758 68.9967v34.0033h-7.199l-14.233-19.8814v19.8814h-8.584v-34.0033h8.307l13.125 18.7184v-18.7184zm28.454 21.5428c0 7.6978-5.15 13.0145-12.737 13.0145-7.532 0-12.738-5.3167-12.738-13.0145s5.206-13.0143 12.738-13.0143c7.587 0 12.737 5.3165 12.737 13.0143zm-8.528 0c0-3.4336-1.496-5.8703-4.209-5.8703-2.659 0-4.154 2.4367-4.154 5.8703s1.495 5.8149 4.154 5.8149c2.713 0 4.209-2.3813 4.209-5.8149zm13.184 3.8766v-9.5807h-3.655v-6.7564h3.655v-6.8671h8.584v6.8671h5.205v6.7564h-5.205v8.307c0 1.9383.941 2.769 2.658 2.769.941 0 1.994-.2216 2.769-.5538v7.3654c-.997.443-2.88.775-4.818.775-5.87 0-9.193-2.769-9.193-9.0819zm37.027 8.5839h-8.806v-34.0033h23.924v7.6978h-15.118v6.7564h13.9v7.5316h-13.9zm41.876-12.4605c0 7.6978-5.15 13.0145-12.737 13.0145-7.532 0-12.738-5.3167-12.738-13.0145s5.206-13.0143 12.738-13.0143c7.587 0 12.737 5.3165 12.737 13.0143zm-8.529 0c0-3.4336-1.495-5.8703-4.208-5.8703-2.659 0-4.154 2.4367-4.154 5.8703s1.495 5.8149 4.154 5.8149c2.713 0 4.208-2.3813 4.208-5.8149zm35.337-12.4605v24.921h-8.695v-2.16c-1.329 1.551-3.821 2.714-6.646 2.714-5.482 0-8.75-3.5999-8.75-9.1379v-16.3371h8.64v14.288c0 2.1045.997 3.5997 3.212 3.5997 1.606 0 3.101-1.0522 3.544-2.769v-15.1187zm4.076 24.921v-24.921h8.694v2.1598c1.385-1.5506 3.822-2.7136 6.701-2.7136 5.538 0 8.806 3.5997 8.806 9.1377v16.3371h-8.639v-14.2327c0-2.049-1.053-3.5443-3.268-3.5443-1.717 0-3.156.9969-3.6 2.7136v15.0634zm44.113 0v-1.994c-1.163 1.329-3.6 2.548-6.147 2.548-7.2 0-11.132-5.8151-11.132-13.0145s3.932-13.0143 11.132-13.0143c2.547 0 4.984 1.2184 6.147 2.5475v-13.0697h8.695v35.997zm0-9.1931v-6.5902c-.665-1.3291-2.16-2.326-3.821-2.326-2.991 0-4.763 2.4368-4.763 5.6488s1.772 5.5934 4.763 5.5934c1.717 0 3.156-.9415 3.821-2.326z" id="error-description"/></svg>
-      </header>
-      <article>
-        <p><strong>The page you were looking for doesn't exist.</strong> You may have mistyped the address or the page may have moved. If you're the application owner check the logs for more information.</p>
-      </article>
-    </main>
-
-  </body>
-
+</body>
 </html>
