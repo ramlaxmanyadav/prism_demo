@@ -41,7 +41,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 2.0"
 
 # Admin dashboard framework [https://activeadmin.info]
-gem "activeadmin", "3.5.1"
+gem "activeadmin", "3.5.2"
 # Flexible authentication solution, required by ActiveAdmin [https://github.com/heartcombo/devise]
 gem "devise"
 # Prism theme for ActiveAdmin (local gem)
